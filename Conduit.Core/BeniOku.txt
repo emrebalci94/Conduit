@@ -1,0 +1,1 @@
+﻿Hiç bi şekilde referans almamsı gerekiyor. Burda Projenin en yapı taşı methodlar yer almalı ve diğer katmanlardan miras almamlı. Core katmanıda diyebiliriz.

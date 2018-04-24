@@ -1,0 +1,390 @@
+﻿
+@{
+    ViewData["Title"] = "Welcome To Conduit";
+}
+<br />
+<style>
+    body {
+        background-color: #eee;
+    }
+
+    .tags button {
+        padding: 2px;
+        margin: 1px;
+    }
+
+    .nav-tabs .nav-link.active {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .btn-close {
+        background: transparent;
+        border: none;
+        color: dimgray;
+        margin-left: 2px;
+        width: auto;
+        height: auto;
+        cursor: pointer;
+    }
+
+        .btn-close :hover {
+            transition: ease-in-out color .3s;
+            color: indianred;
+        }
+</style>
+@{
+    string id = string.Empty;
+}
+@if (User.Claims.Count() > 0)
+{
+    id = User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.PrimarySid).Value;
+}
+
+
+<div id="app" data-userid="@id">
+
+    <div id="Home" class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-1" id="articles">
+                <div class="card">
+                    <div class="card-body">
+
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                @if (id != string.Empty)
+                                {
+
+                                    <feed-tab name="benimyazdiklarim" text="Benim Yazdıklarım"></feed-tab>
+                                }
+                                <feed-tab name="sonyazilanlar" text="Son Yazılanlar" active="true"></feed-tab>
+
+
+                                <feed-tab v-for="tab in tabs" :key="tab" :name="tab" :text="tab" isclose="true"></feed-tab>
+
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <br />
+                            @if (id != string.Empty)
+                            {
+
+                                <feed-body name="benimyazdiklarim" userid="@id" onlyuser="true"></feed-body>
+                            }
+                            <feed-body name="sonyazilanlar" active="true"></feed-body>
+                            <feed-body v-for="tab in tabs" :key="tab" :name="tab" :tag="tab"></feed-body>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h6><i class="fa fa-tags"></i> Etiketler</h6>
+                    </div>
+                    <div id="allTags" class="card-body">
+                        <div class="text-center" v-if="isTagLoading"> <i class="fa fa-spinner fa-pulse fa-3x"></i><p style="font-weight: 700;">Yükleniyor</p></div>
+
+                        <div class="tags" v-if="!isTagLoading">
+                            <button v-for="item in tags" type="button" class="btn btn-outline-secondary" v-on:click="AddTab(item.tag)"><i class="fa fa-tag"></i> {{item.tag}}</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="tokenAl" style="display:none;"></div>
+
+
+
+<script>
+
+
+    Vue.component('feed-tab', {
+        props: {
+            text: { type: String },
+            name: { required: true, type: String },
+            active: { required: false, type: String },
+            isclose: false
+        },
+        template: '<a class="nav-item nav-link" v-bind:id="tabId"  v-bind:class="{active:active}" data-toggle="tab" v-bind:href="href" role="tab"  v-bind:aria-controls="tabElementId" aria-selected="false"> {{text}} <button class=" btn-close" v-if="isclose" v-on:click="CloseTag()"> <i class="fa fa-times-circle"></i> </button></a>',
+        computed: {
+            href() {
+                return "#" + this.tabElementId;
+            },
+            tabId() {
+
+                return "nav-" + this.name + "-tab";
+            },
+            tabElementId() {
+
+                return "nav-" + this.name;
+            }
+        },
+        methods: {
+
+            CloseTag() {
+                var tag = this.name;
+                Home.CloseTab(tag);
+            }
+
+        }
+
+    });
+
+    Vue.component('feed-body', {
+        props: {
+            name: { required: true, type: String },
+            active: { required: false },
+            tag: { type: String },
+            onlyuser: { },
+            userid: { type: String }
+        },
+        template: `
+<div class="tab-pane fade" v-bind:id="id" role="tabpanel" v-bind:aria-labelledby="parentId" v-bind:class="{show:active,active:active}">
+<div v-if="articles.length==0" class="text-center"><code> Herhangi bir makale bulunamadı. </code></div>
+  <div class="form-group" v-if="articles.length>0">
+                                        <label for="limitOfLastFeed">Eleman Sayısı Seçin</label>
+                                        <select class="form-control" v-model="articleLimit" v-on:change="GetArticles(0)">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+  <div class="text-center" v-if="isArticleLoading"> <i class="fa fa-spinner fa-pulse fa-3x"></i><p style="font-weight: 700;">Yükleniyor</p></div>
+    <feed-article v-for="a in articles" :key="a.id" :article="a"  v-if="!isArticleLoading"></feed-article>
+<hr />
+<div class="text-sm-right"> <code class="text-light bg-info"> Toplam {{articleTotalCount}} makale bulunmaktadır. </code></div>
+     <nav v-if="paginationLength>1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" v-bind:class="{ disabled:(articleOffset==0) }"><a class="page-link" href="#" v-on:click="GetArticles((articleOffset-1));"> <i class="fa fa-backward"></i> </a></li>
+            <li class="page-item" v-for="i in paginationLength" v-on:click="GetArticles((i-1));" v-bind:class="{active:((i-1)==articleOffset)}"><a class="page-link" href="#">{{i}}</a></li>
+            <li class="page-item" v-bind:class="{ disabled:(articleOffset==paginationLength-1) }"><a class="page-link" href="#" v-on:click="GetArticles((articleOffset+1));"> <i class="fa fa-forward"></i> </a></li>
+        </ul>
+     </nav>
+
+</div>`,
+        data() {
+            return {
+                articles: [],
+                articleLimit: 2,
+                articleTotalCount: 0,
+                articleOffset:0,
+                isArticleLoading:true,
+            }
+
+        },
+        methods: {
+            GetArticles: function (offset=0) {
+                this.isArticleLoading = true;
+                //fetch('http://localhost:58160/api/Article').then(response => response.json()).then(json => { vm.articles = json; });
+                if ((this.userid != "" || this.userid != null) && this.onlyuser=="true")
+                {
+                    this.$http.get('http://localhost:58160/api/Article?limit=' + this.articleLimit + '&&offset=' + offset  + "&userid=" + this.userid).then(function (response) {
+                        this.articles = response.data.articles;
+                        this.articleTotalCount = response.data.totalCount;
+                        this.articleOffset = offset;
+                        this.isArticleLoading = false;
+                    }, function (error) {
+                        console.log(error.statusText);
+                    });
+                }
+                else {
+
+                    this.$http.get('http://localhost:58160/api/Article?limit=' + this.articleLimit + '&&offset=' + offset + "&tag=" + this.tag).then(function (response) {
+                        this.articles = response.data.articles;
+                        this.articleTotalCount = response.data.totalCount;
+                        this.articleOffset = offset;
+                        this.isArticleLoading = false;
+                    }, function (error) {
+                        console.log(error.statusText);
+                    });
+                }
+
+            }
+
+        },
+        mounted: function () {
+            this.GetArticles();
+        },
+        computed: {
+            paginationLength() {
+
+                return Math.round(this.articleTotalCount / this.articleLimit);
+            },
+            id() {
+                return "nav-" + this.name;
+            },
+            parentId() {
+                return "nav-" + this.name + "-tab";
+            },
+
+
+
+        }
+    });
+
+    Vue.component('feed-article', {
+        props: {
+            article: { required: true }
+        },
+        template: `
+  <div class="reviews" >
+
+                    <div class="row blockquote review-item">
+                        <div class="col-md-3 text-center">
+                            <img class="rounded-circle reviewer" src="http://standaloneinstaller.com/upload/avatar.png">
+                            <div class="caption">
+                                <small><i class="fa fa-bookmark"></i> <a href="#joe">{{article.authorUser.userName}}</a></small>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+
+                        <h4 >{{article.title}}
+<button class="btn btn-sm btn-outline-danger pull-right " v-on:click="likeOrUnlike" v-if="!isliked" ><i class="fa fa-heart-o"></i> {{article.likedUserIds.length}}</button>
+<button class="btn btn-sm btn-danger pull-right " v-on:click="likeOrUnlike" v-if="isliked" ><i class="fa fa-heart"></i> {{article.likedUserIds.length}}</button>
+<a class="btn btn-sm btn-outline-info"  v-if="isme" :href="'/Article/Edit/'+this.article.slug"><i class="fa fa-edit"></i> Düzenle</a>
+
+</h4>
+                            <div class="ratebox text-center" data-id="0" data-rating="5"></div>
+                            <p class="review-text">{{article.description}}<br> <a :href="'/Article/'+article.slug"> <i class="fa fa-arrow-circle-o-right"></i>  devamı için tıklayın.</a> </p>
+                            <p class="review-date text-right"><i class="fa fa-clock-o"></i>  {{formatDate(article.updatedAt)}}</p>
+                            <hr />
+                            <div class="tags text-right">
+
+                                <button v-for="item in article.tags" type="button" class="btn btn-outline-info btn-sm" v-on:click="GoTag(item)"><i class="fa fa-tag"></i> {{item}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+`, methods:{
+
+            formatDate: function (date) {
+                return moment(date, 'YYYY-MM-DD HH:mm').format('DD/MM/YYYY HH:mm');
+            },
+            GoTag: function (tag) {
+                Home.AddTab(tag);
+            },
+            likeOrUnlike: function (event) {
+                var likeUsers= this.article.likedUserIds;
+                var userid = $("#app").data("userid");//TODO: burdan giriş yapan useridsini alıyoruz.
+                var button = $(event.target);
+                if (userid == null || userid == "") {
+                    toastr.error('Beğenmeniz için giriş yapmalısınız.','Üye giriş yapmamış !' , { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true });
+                }
+
+                var index = likeUsers.indexOf(userid);
+                var article = this.article;
+
+                    //Like
+                    $.get("/User/LikeArticle/" + article.id, function (result) {
+
+                        if (result.status) {
+                            //like
+                            likeUsers.push(index);
+                            button.removeClass("btn-outline-danger").addClass("btn-danger").find("i").removeClass("fa-heart-o").addClass("fa-heart");
+                        }
+                        else if (result.unlike) {
+                            //unlike
+                            likeUsers.splice(index,1);
+                            button.removeClass("btn-danger").addClass("btn-outline-danger").find("i").removeClass("fa-heart").addClass("fa-heart-o");
+                        }
+                        else {
+                            //Tokenın bitmesi gibi fena değişik hata
+                            $("#tokenAl").html(result);
+                            toastr.error(result.message, 'Makale beğenilemedi', { "positionClass": "toast-bottom-right", "closeButton": true, "progressBar": true });
+
+                        }
+                    });
+
+
+            }
+        },
+        computed: {
+            isliked() {
+                return this.article.likedUserIds.indexOf($("#app").data("userid")) >= 0;
+
+            },
+            isme() {
+                return this.article.authorUserId == $("#app").data("userid");
+
+            }
+        }
+    });
+
+
+    var Home = new Vue({
+        el: '#Home',
+
+        data: {
+            //articleLimit: 2,
+            //articleOffset: 0,
+            //articleTotalCount: 0,
+            tags: [],
+            //articles: [],
+            //isArticleLoading: true,
+            isTagLoading: true,
+
+            tabs: []
+        },
+        methods: {
+
+            GetTags: function () {
+
+                //  fetch('http://localhost:58160/api/Tag').then(response => response.json()).then(json => console.log(json));
+                this.$http.get('http://localhost:58160/api/Tag').then(function (response) {
+                    this.tags = response.data;
+                    this.isTagLoading = false;
+                }, function (error) {
+                    console.log(error.statusText);
+                });
+            },
+            AddTab(tag) {
+                if (this.tabs.indexOf(tag) == -1) {
+                    this.tabs.push(tag);
+                    //Domun yüklenmesini beklemek için timeout koyduk
+                    setTimeout(() => {
+                        var id = "nav-" + tag + "-tab";
+                        document.getElementById(id).click();
+                    }, 50);
+
+                }
+                else {
+                    var id = "nav-" + tag + "-tab";
+                    document.getElementById(id).click();
+                }
+
+            },
+            CloseTab(tag) {
+                var index = this.tabs.indexOf(tag);
+                if (index > -1) {
+                    this.tabs.splice(index, 1);
+                    setTimeout(() => { document.getElementsByClassName("nav-tabs")[0].getElementsByTagName("a")[1].click(); }, 10);
+
+                }
+            },
+            formatDate: function (date) {
+                return moment(date, 'YYYY-MM-DD HH:mm').format('DD/MM/YYYY HH:mm');
+            }
+        },
+        mounted: function () {
+            this.GetTags();
+        },
+        computed: {
+
+
+        }
+    });
+
+
+</script>

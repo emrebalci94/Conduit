@@ -1,0 +1,127 @@
+﻿@model Users //_ViewImports 'a eklendi namespace
+
+@{
+    ViewData["Title"] = "Conduit/Üye Ol";
+}
+
+<br />
+
+
+<div id="loading" > <i class="fa fa-5x fa-cog fa-spin"></i> </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        <h2 class="text-dark text-capitalize text-center"><i class="fa fa-plus-circle"></i> Üye Ol</h2>
+                        <hr />
+                        @*<div asp-validation-summary="None" class="text-danger"></div>*@
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg text-lowercase" placeholder="Kullancı Adı" tabindex="1" asp-for="Username" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" placeholder="Şifre" tabindex="2" asp-for="Password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" placeholder="Şifre(Tekrar)" tabindex="3" asp-for="ConfirmPassword" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Adı" tabindex="5" asp-for="Firstname">
+                                    <span asp-validation-for="Firstname" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Soyadı" tabindex="6" asp-for="Surname">
+                                    <span asp-validation-for="Surname" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Adresi" tabindex="7" asp-for="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-xs-6 col-md-6"><a  asp-action="Login" class="btn btn-outline-secondary btn-block btn-lg" tabindex="7">Giriş Yap</a></div>
+
+                            <div class="col-xs-6 col-md-6"><input type="submit" value="Üye Ol" class="btn btn-success btn-block btn-lg" tabindex="7" id="btnRegister" accesskey="enter"></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $("form").submit(false); // Button submit olduğu için ve entera basınca login butonu çalışması için.
+    $("#btnRegister").click(() => {
+
+        if ($("form").valid()) {
+            var json = getFormData($("form"));
+
+            $.ajax({
+                url: "http://localhost:58160/api/User",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                dataType: "json",
+                type: "POST",
+                data: json,
+                beforeSend: () => {
+
+                    $("#loading").addClass("loading");
+                 
+                },
+                success: (data) => {
+                    console.log(data);
+                    if (data.errors != null || data.errors != undefined) {
+                        toastr.error(data.errors.message, 'Kayıt Başarısız!', { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true});
+                    }
+                    else {
+                        toastr.success("Kayıt işlemi gerçekleşti.", 'Kayıt Başarılı!', { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true });
+                    }
+                },
+                error: (err) => {
+                    console.log(err);
+                },
+                complete: () => {
+
+                    $("#loading").removeClass("loading");
+
+                }
+
+            })
+
+        }
+
+    });
+
+    function getFormData($form) {
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return JSON.stringify(indexed_array);
+    }
+
+
+</script>

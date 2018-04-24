@@ -1,0 +1,11 @@
+V
+TC:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\Controllers\ArticleController.csV
+TC:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\Controllers\CommentController.csR
+PC:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\Controllers\TagController.csT
+RC:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\Controllers\TokenController.csS
+QC:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\Controllers\UserController.csU
+SC:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\Controllers\ValuesController.cs@
+>C:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\Program.cs@
+>C:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\Startup.csZ
+VC:\Users\EXT02D13704\AppData\Local\Temp\.NETCoreApp,Version=v2.0.AssemblyAttributes.csn
+jC:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebApi\obj\Debug\netcoreapp2.0\Conduit.WebApi.AssemblyInfo.cs

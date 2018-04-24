@@ -1,0 +1,99 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Conduit/Üye Girişi";
+}
+<br />
+
+<div id="loading"> <i class="fa fa-5x fa-cog fa-spin"></i> </div>
+<div class="container">
+    @if (ViewBag.Fail != null)
+    {
+        <div class="alert alert-danger ">
+            <i class="fa fa-warning"></i> Kullanıcı adı veya şifre yanlış.
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        <h2 class="text-dark text-capitalize text-center"><i class="fa fa-sign-in"></i> Giriş Yap</h2>
+                        <hr />
+                        @*<div asp-validation-summary="None" class="text-danger"></div>*@
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg text-lowercase" placeholder="Kullancı Adı" tabindex="1" asp-for="Username" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" placeholder="Şifre" tabindex="2" asp-for="Password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+
+                        </div>
+
+                        <hr />
+                        <div class="row">
+                            <div class="col-xs-6 col-md-6"><a class="btn btn-outline-warning btn-block btn-lg" tabindex="7" asp-action="Register" asp-controller="Users"> Üye Ol</a></div>
+                            <div class="col-xs-6 col-md-6"><input type="submit" value="Giriş Yap" class="btn btn-outline-success btn-block btn-lg" tabindex="8" id="btnLogin"></div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        $("form").submit(false); // Button submit olduğu için ve entera basınca login butonu çalışması için.
+
+        $("#btnLogin").click(() => {
+            if ($("form").valid()) {
+
+                var json = getFormData($("form"));
+
+                $.ajax({
+                    url: "http://localhost:58160/api/Token/Login", //TODO: Login olunca bir User ID ve Token dönüyo User ID yi alıp Vue Js ile halledicez.
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    data: json,
+                    beforeSend: () => {
+                        $("#loading").addClass("loading");
+                    },
+                    success: (data) => {
+                        console.log(data);
+                        localStorage.setItem("user", JSON.stringify( data));
+                        toastr.success("Giriş işlemi gerçekleşti.", 'Giriş Başarılı!', { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true });
+                        console.log(JSON.parse( localStorage.getItem("user")).token);
+                    },
+                    error: (err) => {
+                        toastr.error('Kullanıcı adı veya şifre yanlış!', 'Uyarı', { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true });
+
+                    },
+                    complete: () => {
+
+                        $("#loading").removeClass("loading");
+
+                    }
+
+                })
+            }
+
+        });
+
+        function getFormData($form) {
+            var unindexed_array = $form.serializeArray();
+            var indexed_array = {};
+
+            $.map(unindexed_array, function (n, i) {
+                indexed_array[n['name']] = n['value'];
+            });
+
+            return JSON.stringify(indexed_array);
+        }
+
+    </script>*@

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="text-danger"><i class="fa fa-warning"></i> Opps,bir hata oldu ! <i class="fa fa-cog fa-spin pull-right fa-2x"></i> </h5>
+                </div>
+                <div class="card-body">
+                    <p><span>@ViewBag.Url</span> gitmeye çalışılırken hata veya güvenlik prosedürü ile karşılaşıldı. Sorunu hemen düzeltiyoruz.</p>
+                    <code><b>Detay:</b><span> @ViewBag.Message</span></code><br />
+                    <code class="text-warning bg-info pull-right"> Biraz beklerseniz sizi maksimum 5 saniye içinde yönlendireceğiz. </code>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" value="@ViewBag.Type" id="hdType" />
+<input type="hidden" value="@ViewBag.Url" id="hdUrl" />
+
+
+<script>
+    $().ready(function () {
+
+        if ($("#hdType").val() == "401") {
+
+            $.get("/User/NewToken", function (result) {
+                console.log(result);
+                if (result.status) {
+                    window.location = $("#hdUrl").val();
+                }
+            });
+
+        }
+    });
+</script>

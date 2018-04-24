@@ -1,0 +1,6 @@
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.DataAccess.deps.json
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.DataAccess.dll
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.DataAccess.AssemblyInfoInputs.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.DataAccess.AssemblyInfo.cs

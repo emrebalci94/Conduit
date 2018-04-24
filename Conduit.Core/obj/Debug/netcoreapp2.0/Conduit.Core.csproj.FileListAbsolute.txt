@@ -1,0 +1,9 @@
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\bin\Debug\netcoreapp2.0\Conduit.Core.deps.json
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\bin\Debug\netcoreapp2.0\Conduit.Core.dll
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\bin\Debug\netcoreapp2.0\Conduit.Core.pdb
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Core.csprojResolveAssemblyReference.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Core.csproj.CoreCompileInputs.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Core.AssemblyInfoInputs.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Core.AssemblyInfo.cs
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Core.dll
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Core.pdb

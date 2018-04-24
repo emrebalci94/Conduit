@@ -1,0 +1,10 @@
+@
+>C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\Article.csH
+FC:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\ArticleFavorite.csC
+AC:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\ArticleTag.cs@
+>C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\Comment.csG
+EC:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\FollowedPeople.cs<
+:C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\Tag.cs=
+;C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\User.csZ
+VC:\Users\EXT02D13704\AppData\Local\Temp\.NETCoreApp,Version=v2.0.AssemblyAttributes.csn
+jC:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\obj\Debug\netcoreapp2.0\Conduit.Domain.AssemblyInfo.cs

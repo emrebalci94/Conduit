@@ -1,0 +1,12 @@
+K
+IC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\ConduitContext.cs]
+[C:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\EntityFramework\EfRepositoryBase.csd
+bC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\Migrations\20180312115342_InitialCreate.cso
+kC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\Migrations\20180312115342_InitialCreate.Designer.cse
+cC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\Migrations\20180312120633_InitialCreate2.csp
+lC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\Migrations\20180312120633_InitialCreate2.Designer.csh
+fC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\Migrations\20180316081100_SaltAndHashString.css
+oC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\Migrations\20180316081100_SaltAndHashString.Designer.cse
+aC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\Migrations\ConduitContextModelSnapshot.csZ
+VC:\Users\EXT02D13704\AppData\Local\Temp\.NETCoreApp,Version=v2.0.AssemblyAttributes.csp
+lC:\Users\EXT02D13704\Desktop\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.AssemblyInfo.cs

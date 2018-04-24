@@ -1,0 +1,12 @@
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\bin\Debug\netcoreapp2.0\Conduit.Domain.deps.json
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\bin\Debug\netcoreapp2.0\Conduit.Domain.dll
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\bin\Debug\netcoreapp2.0\Conduit.Domain.pdb
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\bin\Debug\netcoreapp2.0\Conduit.Common.dll
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\bin\Debug\netcoreapp2.0\Conduit.Common.pdb
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\obj\Debug\netcoreapp2.0\Conduit.Domain.csprojResolveAssemblyReference.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\obj\Debug\netcoreapp2.0\Conduit.Domain.csproj.CoreCompileInputs.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\obj\Debug\netcoreapp2.0\Conduit.Domain.AssemblyInfoInputs.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\obj\Debug\netcoreapp2.0\Conduit.Domain.AssemblyInfo.cs
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\obj\Debug\netcoreapp2.0\Conduit.Domain.dll
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\obj\Debug\netcoreapp2.0\Conduit.Domain.pdb
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit.Domain\obj\Debug\netcoreapp2.0\Conduit.Domain.csproj.CopyComplete
