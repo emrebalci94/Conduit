@@ -12865,15 +12865,12 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.WebUI\\Conduit.WebUI.csproj",
+      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebUI\\Conduit.WebUI.csproj",
       "projectName": "Conduit.WebUI",
-      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.WebUI\\Conduit.WebUI.csproj",
+      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebUI\\Conduit.WebUI.csproj",
       "packagesPath": "C:\\Users\\EXT02D13704\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.WebUI\\obj\\",
+      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebUI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

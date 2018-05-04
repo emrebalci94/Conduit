@@ -48,6 +48,14 @@ namespace Conduit.WebApi.Controllers
             return BadRequest(result.Errors.Message);
         }
 
+        [HttpGet("detail/{username}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUserAsync(string username)
+        {
+            var result = await _userServices.GetUserModel(username); 
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody]UserDto userDto)
         {
@@ -103,7 +111,14 @@ namespace Conduit.WebApi.Controllers
             {
                 return Ok(durum);
             }
-            return BadRequest(durum);
+            return Ok(durum);
+
+        }
+
+        [HttpGet("isfollow")]
+        public async Task<IActionResult> UserIsFollowAsync(int followid, int userid)
+        {
+            return Ok(new { status = await _flowedUserServices.UserIsFollowAsync(followid, userid) });
 
         }
 
@@ -117,6 +132,13 @@ namespace Conduit.WebApi.Controllers
                 return Ok(durum);
             }
             return Ok(durum);
+        }
+
+        [HttpGet("followuserlist/{userid}")]
+        public async Task<IActionResult> FollowUserList([FromQuery] int? offset, [FromQuery] int? limit,  int userid)
+        {  
+            var model = await _flowedUserServices.GetListModel(userid, limit, offset);
+            return Ok(model);
         }
     }
 }

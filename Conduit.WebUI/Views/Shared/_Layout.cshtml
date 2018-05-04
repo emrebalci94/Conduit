@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link rel="shortcut icon" type="image/x-icon" href="http://deci-europe.eu/deciproject/wp-content/uploads/2015/12/article-icon.png" />
+
     <environment names="Development">
         <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
@@ -17,6 +18,7 @@
 
         <link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
         <script src="~/lib/jQuery/dist/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     </environment>
 
@@ -30,9 +32,14 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/lib/Assets/Js/article-component.js"></script>
 
 </head>
-<body>
+
+
+<body data-userid="@(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.PrimarySid)!=null ? User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.PrimarySid).Value:"")" data-token="@(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Hash)!= null ? User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Hash).Value : "")">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" asp-controller="Home" asp-action="Index"><i class="fa fa-newspaper-o"></i> Conduit</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +56,7 @@
                 {
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-circle"></i>    @(User.Claims.FirstOrDefault(p=>p.Type==System.Security.Claims.ClaimTypes.Upn).Value)
+                            <i class="fa fa-user-circle"></i>    @(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Upn).Value)
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" asp-controller="User" asp-action="Profile"><i class="fa fa-user"></i> Profil</a>
@@ -61,7 +68,7 @@
                         </div>
                     </li>
 
-                  
+
                 }
                 else
                 {
@@ -80,5 +87,13 @@
 
     @RenderBody()
 
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
+
+
 </html>

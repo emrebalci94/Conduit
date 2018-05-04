@@ -179,7 +179,16 @@ namespace Conduit.WebUI.Controllers
 
         }
 
-
+        public IActionResult Detail(string username)
+        {
+      
+            var model = _apiRequestService.Get<ResultMessage<UserDto>>($"http://localhost:58160/api/User/Detail/{ username }");
+            if (model.Errors!=null)
+            {
+                return BadRequest(model.Errors.Message);
+            }
+            return View(model.Result);
+        }
 
     }
 }

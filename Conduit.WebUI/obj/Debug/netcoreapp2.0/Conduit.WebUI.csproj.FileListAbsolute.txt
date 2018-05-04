@@ -9,3 +9,14 @@ C:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebUI\bin\Debug\netcoreapp2.0\Condu
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.dll
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.pdb
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.csprojResolveAssemblyReference.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\bin\Debug\netcoreapp2.0\Conduit.WebUI.deps.json
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\bin\Debug\netcoreapp2.0\Conduit.WebUI.runtimeconfig.json
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\bin\Debug\netcoreapp2.0\Conduit.WebUI.runtimeconfig.dev.json
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\bin\Debug\netcoreapp2.0\Conduit.WebUI.dll
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\bin\Debug\netcoreapp2.0\Conduit.WebUI.pdb
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.csprojResolveAssemblyReference.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.csproj.CoreCompileInputs.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.AssemblyInfoInputs.cache
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.AssemblyInfo.cs
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.dll
+C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.WebUI\obj\Debug\netcoreapp2.0\Conduit.WebUI.pdb

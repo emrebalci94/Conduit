@@ -23,7 +23,7 @@ namespace Conduit.WebUI
             {
                 option.AccessDeniedPath = new PathString("/User/AccessDenied");
                 option.LoginPath = new PathString("/User/Login");
-                
+
             });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -49,9 +49,12 @@ namespace Conduit.WebUI
             app.UseStaticFiles();// wwwroot altındaki css ve scriptleri görsün diye
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "articledetail", template: "Article/{slug}", defaults: new { controller = "Article", action = "ArticleDetail" });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("userdetail", "User/{username}", defaults: new { controller = "User", action = "Detail" });
             });
         }
     }

@@ -22,8 +22,11 @@ namespace Conduit.Business.Services
         Task<ResultMessage<UserDto>> UpdateAsync(UserDto user);
         Task<ResultMessage<User>> DeleteAsync(int id);
         Task<ResultMessage<UserDto>> GetUserAsync(int id);
+        Task<ResultMessage<UserDto>> GetUserModel(string username);
+
 
         Task<User> Get(Expression<Func<User, bool>> expression);
+
         IQueryable<User> GetIncludes(params Expression<Func<User, object>>[] includes);
 
 

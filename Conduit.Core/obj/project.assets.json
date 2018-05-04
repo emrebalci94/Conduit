@@ -669,15 +669,12 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.Core\\Conduit.Common.csproj",
+      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Core\\Conduit.Common.csproj",
       "projectName": "Conduit.Common",
-      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.Core\\Conduit.Common.csproj",
+      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Core\\Conduit.Common.csproj",
       "packagesPath": "C:\\Users\\EXT02D13704\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.Core\\obj\\",
+      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

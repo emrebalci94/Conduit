@@ -6980,15 +6980,12 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj",
+      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj",
       "projectName": "Conduit.Data",
-      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj",
+      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj",
       "packagesPath": "C:\\Users\\EXT02D13704\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.DataAccess\\obj\\",
+      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7007,8 +7004,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.Domain\\Conduit.Domain.csproj": {
-              "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.Domain\\Conduit.Domain.csproj"
+            "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Domain\\Conduit.Domain.csproj": {
+              "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Domain\\Conduit.Domain.csproj"
             }
           }
         }

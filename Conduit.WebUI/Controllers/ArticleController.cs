@@ -105,5 +105,11 @@ namespace Conduit.WebUI.Controllers
             }
             return View(model);
         }
+
+        public IActionResult ArticleDetail(string slug)
+        {
+            ViewBag.Slug = slug;
+            return View();
+        }
     }
 }

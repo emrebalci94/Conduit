@@ -163,5 +163,20 @@ namespace Conduit.Business.Managers.EntityFramework
             }
             return resultMessage;
         }
+
+        public async Task<ResultMessage<UserDto>> GetUserModel(string username)
+        {
+            ResultMessage<UserDto> resultMessage = new ResultMessage<UserDto>();
+            var user = await Get(p => p.UserName == username);
+            if (user != null)
+            {
+                resultMessage.Result = _mapper.Map<UserDto>(user);
+            }
+            else
+            {
+                resultMessage.Errors = new ErrorMessageObj(ErrorMessageCode.UserNotFound, "Kullanıcı bulunamadı.");
+            }
+            return resultMessage;
+        }
     }
 }

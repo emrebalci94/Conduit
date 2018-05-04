@@ -13293,15 +13293,12 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.WebApi\\Conduit.WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebApi\\Conduit.WebApi.csproj",
       "projectName": "Conduit.WebApi",
-      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.WebApi\\Conduit.WebApi.csproj",
+      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebApi\\Conduit.WebApi.csproj",
       "packagesPath": "C:\\Users\\EXT02D13704\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.WebApi\\obj\\",
+      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13320,11 +13317,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj": {
-              "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj"
+            "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Business\\Conduit.Business.csproj": {
+              "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Business\\Conduit.Business.csproj"
             },
-            "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.Business\\Conduit.Business.csproj": {
-              "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit.Business\\Conduit.Business.csproj"
+            "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj": {
+              "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj"
             }
           }
         }

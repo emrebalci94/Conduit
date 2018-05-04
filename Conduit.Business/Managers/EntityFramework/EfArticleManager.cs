@@ -93,7 +93,7 @@ namespace Conduit.Business.Managers.EntityFramework
 
         public async Task<ArticleViewModel> GetViewModel(Expression<Func<Article, bool>> expression)
         {
-            var article = GetIncludes(p => p.ArticleTags).FirstOrDefault(expression);
+            var article = GetIncludes(p => p.ArticleTags,p=>p.AuthorUser,p=>p.ArticleFavorites).FirstOrDefault(expression);
             return _mapper.Map<ArticleViewModel>(article);
         }
 

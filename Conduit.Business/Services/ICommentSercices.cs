@@ -1,4 +1,5 @@
 ﻿using Conduit.Business.Messages;
+using Conduit.Business.ViewModels;
 using Conduit.Common.Dto;
 using Conduit.Domain;
 using System;
@@ -13,6 +14,8 @@ namespace Conduit.Business.Services
     public interface ICommentSercices
     {
         Task<List<CommentDto>> GetListAsync();
+        Task<CommentListModel> GetListModelAsync(CommentQuery query);
+
         Task<ResultMessage<CommentDto>> InsertAsync(CommentDto commentDto);
         Task<ResultMessage<CommentDto>> UpdateAsync(CommentDto commentDto);
         Task<ResultMessage<CommentDto>> DeleteAsync(int id);

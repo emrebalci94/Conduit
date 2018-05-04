@@ -1,0 +1,411 @@
+﻿@model ArticleDto
+@{
+    ViewData["Title"] =  ViewBag.Slug;
+}
+<br />
+<style>
+    /* CSS Test begin */
+    .editable{
+        display:block;
+        height:100px
+    }
+    .comment-box {
+        margin-top: 30px !important;
+    }
+        /* CSS Test end */
+
+        .comment-box img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .comment-box .media-left {
+            padding-right: 10px;
+            width: 65px;
+        }
+
+        .comment-box .media-body p {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .comment-box .media-body .media p {
+            margin-bottom: 0;
+        }
+
+        .comment-box .media-heading {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 7px 10px;
+            position: relative;
+            margin-bottom: -1px;
+        }
+
+            .comment-box .media-heading:before {
+                content: "";
+                width: 12px;
+                height: 12px;
+                background-color: #f5f5f5;
+                border: 1px solid #ddd;
+                border-width: 1px 0 0 1px;
+                -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+                position: absolute;
+                top: 10px;
+                left: -6px;
+            }
+</style>
+<input type="hidden" id="hdSlug" value="@ViewBag.Slug" />
+
+<div id="app" class="container-fluid">
+    <div class="text-center" v-if="!isOk">
+        <i class="fa fa-5x fa-cog fa-spin"></i>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="card" v-if="isOk">
+                    <div class="card-header bg-info text-white">
+                        <h4><i class="fa fa-search"></i> Makale Detayı</h4>
+                    </div>
+                    <div class="card-body">
+                        <feed-article :article="article" :is-detail="true"></feed-article>
+                    </div>
+                    <div class="card-footer">
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <article-comments :article-id="article.id"></article-comments>
+
+                @*<div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4><i class="fa fa-comment"></i> Yorumlar</h4>
+            </div>
+            <div class="card-body" >
+                <div class="media comment-box">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="img-responsive user-photo rounded-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">User Name</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <textarea type="text" class="form-control input-lg" placeholder="Yorum Yap" tabindex="1" rows="3" id="txtComment" required></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-1 mt-4" v-if="isCommentPost">
+                        <i class="fa fa-2x fa-spin fa-cog"></i>
+                    </div>
+                    <div class="col-md-2 mt-3">
+                        <button class="btn btn-outline-success" v-on:click="NewComment">Gönder</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    Vue.component('article-comment', {
+        props: {
+            comment: { required: true }
+        },
+        data() {
+            return {
+                isEdit:true,
+
+            }
+
+        },
+        template: `
+                        <div class="media comment-box">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="img-responsive user-photo rounded-circle" :src="profilePicture">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{comment.authorUser.userName}} 
+<div class="pull-right" v-if="isUser"> 
+<button class="btn btn-sm btn-outline-primary " v-on:click="edit" v-if="isEdit" ><i class="fa fa-pencil"></i> </button>
+<button class="btn btn-sm btn-outline-success " v-on:click="save" v-if="!isEdit" ><i class="fa fa-check"></i> </button>
+<button class="btn btn-sm btn-outline-danger" v-on:click="remove"  ><i class="fa fa-trash-o"></i> </button>
+
+</div>                                
+</h4>
+                               <p > <span id="commentBody">{{comment.body}}</span> <br>
+<span class="review-date text-right" style="float: right;font-size: 10px;"><i class="fa fa-clock-o"></i>  {{formatDate(comment.updatedAt)}}</span>
+<br>
+</p>
+                            </div>
+                        </div>
+
+        `,
+        computed: {
+            profilePicture() {
+                //console.log(this.comment);
+                return this.comment.authorUser.image == null ? "http://standaloneinstaller.com/upload/avatar.png" : this.comment.authorUser.image;
+
+            },
+            isUser() {
+                var userid = $("body").data("userid");
+                return this.comment.authorUserId == userid;
+            }
+        },
+        methods: {
+            formatDate: function (date) {
+                return moment(date, 'YYYY-MM-DD HH:mm').format('DD/MM/YYYY HH:mm');
+            },
+            remove() {
+                console.log(this.$parent);
+                this.$parent.DeleteComment( this.comment.id);
+
+            },
+            edit() {
+                var obj = document.getElementById("commentBody");
+                obj.contentEditable = true;
+                obj.classList.add("bg-warning");
+                obj.classList.add("editable");
+                this.isEdit = false;
+            },
+            save() {
+                var userid = $("body").data("userid");
+                var obj = document.getElementById("commentBody");
+                obj.contentEditable = false;
+                obj.classList.remove("bg-warning");
+                obj.classList.remove("editable");
+                this.isEdit = true;
+                var articleId = this.$parent.articleId;
+                var body = obj.innerText;
+                var comment = {
+                    id: this.comment.id,
+                    authorUserId: userid,
+                    'articleId': articleId,
+                    body: body
+                };
+                this.$http.put('http://localhost:58160/api/Comment/', comment).then(function (result) {
+               
+                    if (result.body.errors == null) {
+                        this.$parent.GetComment();
+                    }
+                }, function (err) { console.log(err); });
+            }
+
+        },
+        mounted: function () {
+        },
+
+    });
+   
+    Vue.component('article-comments', {
+        props: {
+
+            articleId: { required: true }
+        },
+        data() {
+            return {
+                data: [],
+                limit:5,
+                offset: 0,
+                totalCount: 0,
+                isOk: false,
+                isCommentPost: false
+            }
+        },
+         template: `
+ <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h4><i class="fa fa-comment"></i> Yorumlar</h4>
+                    </div>
+                    <div class="card-body" v-if="data.comments" >
+<div v-if="!data.comments.length>0" class="text-center"> <code> Henüz yorum yapılmamış.</code> </div>
+<div v-if="data.comments.length>0">
+ <div v-if="!isOk" class="text-center">
+                            <i class="fa fa-3x fa-spin fa-spinner"></i> <br />Yorumlar Yükleniyor
+                        </div>
+                        <article-comment v-for="item in data.comments " :key="item.id" :comment="item" v-if="isOk" ></article-comment>
+<div class="text-sm-right"> <code class="text-dark bg-light"> Toplam {{totalCount}} yorum bulunmaktadır. </code></div>
+</div>
+<hr>
+  <nav v-if="paginationLength>1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" v-bind:class="{ disabled:(offset==0) }"><a class="page-link" href="#" v-on:click="GetComment((offset-1));"> <i class="fa fa-backward"></i> </a></li>
+            <li class="page-item" v-for="i in paginationLength" v-on:click="GetComment((i-1));" v-bind:class="{active:((i-1)==offset)}"><a class="page-link" href="#">{{i}}</a></li>
+            <li class="page-item" v-bind:class="{ disabled:(offset==paginationLength-1) }"><a class="page-link" href="#" v-on:click="GetComment((offset+1));"> <i class="fa fa-forward"></i> </a></li>
+        </ul>
+     </nav>
+
+  </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <textarea type="text" class="form-control input-lg" placeholder="Yorum Yap" tabindex="1" rows="3" id="txtComment" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-1 mt-4" v-if="isCommentPost">
+                                <i class="fa fa-2x fa-spin fa-cog"></i>
+                            </div>
+                            <div class="col-md-2 mt-3">
+                                <button class="btn btn-outline-success" v-on:click="NewComment">Gönder</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        `,
+        computed: {
+
+            DataList() {
+                //TODO: son eklenen en yukarda çıksın diye. Sonradan kaldırdım ama kalsın belki bu tarz bişi lazım olur.
+
+                var data = this.data.comments;
+                if (data == null) {
+                    return;
+                }
+                return data.sort((a, b) => this.asc * a.updatedAt.localeCompare(b.updateAt));
+
+            },
+            paginationLength() {
+
+                return Math.round(this.totalCount / this.limit);
+            }
+        },
+        methods: {
+            GetComment: function (offset=0) {
+                this.isOk = false;
+
+                this.$http.get('http://localhost:58160/api/Comment?limit=' + this.limit + '&offset=' + offset + '&slug=' + $("#hdSlug").val()).then(function (response) {
+                    var result = response.data;
+                    if (!result.error) {
+                        this.data = result.obj;
+                        this.totalCount = this.data.totalCount;
+                        this.offset = offset;
+                    }
+                    else {
+                        this.data = [];
+                    }
+                    this.isOk = true;
+
+
+                }, function (error) {
+                    console.log(error.statusText);
+                });
+
+            },
+            NewComment: function () {
+                //TODO: Düzeltilecek.
+
+                var authorUserId = $("body").data("userid");
+                var articleId = this.articleId;
+                var body = document.getElementById("txtComment").value;
+                if (body == "") {
+                    toastr.error('Lütfen birşeyler yazın.', 'Yorum metni boş', { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true });
+                    return;
+                }
+                var comment = {
+                    authorUserId: authorUserId,
+                    'articleId': articleId,
+                    body: body
+                };
+                //console.log(JSON.stringify(comment));
+                this.isCommentPost = true;
+                this.$http.post('http://localhost:58160/api/Comment/', comment).then(function (result) {
+                    //console.log(result.body.result);
+                    //this.data.comments.push(result.body.result);
+                    this.isCommentPost = false;
+                    document.getElementById("txtComment").value = "";
+                    this.GetComment();
+                }, function (err) { console.log(err); });
+
+
+            },
+            DeleteComment: function (id) {
+                swal({
+                    title: "Emin misin?",
+                    text: "Yorum silinsin mi ?",
+                    icon: "info",
+                    buttons: ["Vazgeç", "Sil!"],
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+                            this.$http.delete('http://localhost:58160/api/Comment/' + id).then(function (response) {
+                                console.log(response);
+                                if (response.ok) {
+                                    this.GetComment();
+                                    swal("Yorum başarıyla silindi.", {
+                                        icon: "success",
+                                    });
+                                }
+                            });
+
+
+
+                        } else {
+                            //swal("Your imaginary file is safe!");
+                        }
+                    });
+            }
+
+        },
+        mounted: function () {
+            this.GetComment();
+           
+        },
+
+    });
+
+
+    var app = new Vue({
+        el: '#app',
+
+        data: {
+            article: [],
+            isOk: false,
+        },
+        methods: {
+            GetArticle: function () {
+                this.isOk = false;
+
+                this.$http.get('http://localhost:58160/api/Article/' + $("#hdSlug").val()).then(function (response) {
+                    this.article = response.data;
+                    this.isOk = true;
+                }, function (error) {
+                    console.log(error.statusText);
+                });
+            },
+          
+        
+        },
+        mounted: function () {
+            this.GetArticle();
+           
+        },
+        computed: {
+
+
+        }
+
+    });
+
+</script>

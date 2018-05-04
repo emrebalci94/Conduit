@@ -1,0 +1,545 @@
+﻿@model UserDto
+@{
+    ViewData["Title"] = $"{Model.UserName}";
+}
+@*Detail sayfası*@
+<style>
+
+
+    body {
+        background: #F1F3FA;
+    }
+
+    /* Profile container */
+    .profile {
+        margin: 20px 0;
+    }
+
+    /* Profile sidebar */
+    .profile-sidebar {
+        padding: 20px 0 10px 0;
+        background: #fff;
+        border: 2px solid #F1F3FA;
+        border-radius: 10px;
+        -webkit-box-shadow: 13px 14px 31px -1px rgba(0,0,0,0.55);
+        -moz-box-shadow: 13px 14px 31px -1px rgba(0,0,0,0.55);
+        box-shadow: 13px 14px 31px -1px rgba(0,0,0,0.55);
+    }
+
+    .profile-userpic img {
+        float: none;
+        margin: 0 auto;
+        width: 50%;
+        height: 50%;
+        -webkit-border-radius: 50% !important;
+        -moz-border-radius: 50% !important;
+        border-radius: 50% !important;
+    }
+
+    .profile-usertitle {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .profile-usertitle-name {
+        color: #5a7391;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .profile-usertitle-job {
+        text-transform: uppercase;
+        color: #5b9bd1;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .profile-userbuttons {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+            .profile-userbuttons .btn:last-child {
+                margin-right: 0px;
+            }
+
+    /* Profile Content */
+    .profile-content {
+        padding: 20px;
+        background: #fff;
+        min-height: 500px;
+        -webkit-box-shadow: 13px 14px 31px -1px rgba(0,0,0,0.55);
+        -moz-box-shadow: 13px 14px 31px -1px rgba(0,0,0,0.55);
+        box-shadow: 13px 14px 31px -1px rgba(0,0,0,0.55);
+    }
+
+    .profile-usermenu ul li.active {
+        border-bottom: none;
+    }
+
+        .profile-usermenu ul li.active a {
+            color: #5b9bd1;
+            background-color: #f6f9fb;
+            border-left: 2px solid #5b9bd1;
+            margin-left: -2px;
+        }
+</style>
+
+@* Profile Card *@
+<style>
+    /* FontAwesome for working BootSnippet :> */
+
+
+    section {
+        padding: 60px 0;
+    }
+
+        section .section-title {
+            text-align: center;
+            color: #007b5e;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+    #team .card {
+        width: 200px;
+    }
+
+    .image-flip:hover .backside,
+    .image-flip.hover .backside {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        border-radius: .25rem;
+    }
+
+    .image-flip:hover .frontside,
+    .image-flip.hover .frontside {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+
+    .mainflip {
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -moz-transition: 1s;
+        -moz-transform: perspective(1000px);
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+        position: relative;
+    }
+
+    .frontside {
+        position: relative;
+        -webkit-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        z-index: 2;
+        margin-bottom: 30px;
+    }
+
+    .backside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: white;
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+        -o-transform: rotateY(-180deg);
+        -ms-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+        -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    }
+
+    .frontside,
+    .backside {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transition: 1s;
+        -moz-transform-style: preserve-3d;
+        -o-transition: 1s;
+        -o-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+    }
+
+        .frontside .card,
+        .backside .card {
+            min-height: 312px;
+        }
+
+            .backside .card a {
+                font-size: 18px;
+                color: #007b5e ;
+            }
+
+                .backside .card a:hover {
+                    color: #5a7391 !important;
+                    transition: ease-in-out all 0.5s;
+                }
+
+            .frontside .card .card-title,
+            .backside .card .card-title {
+                color: #007b5e !important;
+            }
+
+            .frontside .card .card-body img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+            }
+</style>
+
+<div id="app" class="container" data-id="@Model.Id">
+
+    <div class="row">
+        <div class="row profile col-md-12">
+            <div class="col-md-3">
+                <div class="profile-sidebar ">
+                    <!-- SIDEBAR USERPIC -->
+                    <div class="profile-userpic text-center">
+                        <img src="@(Model.Image??"http://standaloneinstaller.com/upload/avatar.png")" class="rounded-circle img-thumbnail" alt="">
+                    </div>
+                    <!-- END SIDEBAR USERPIC  http://standaloneinstaller.com/upload/avatar.png-->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                            @(Model.FirstName + " " + Model.LastName)
+                        </div>
+                        <div class="profile-usertitle-job">
+                            @Model.Bio
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR BUTTONS -->
+                    <div class="profile-userbuttons">
+                        <button type="button" v-bind:class="[ (isFollow ? 'btn-outline-danger':'btn-success') ]" class="btn btn-success btn-block" v-on:click="Follow"><i class="fa" v-bind:class="[(isFollow?'fa-eye-slash':'fa-eye')]"></i>  {{(isFollow?"Takipten Çık":"Takip Et")}} </button>
+
+                    </div>
+                    <!-- END SIDEBAR BUTTONS -->
+                    <!-- SIDEBAR MENU -->
+                    <hr />
+
+
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-book"></i> Yazdığı Makaleler</a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="fa fa-users"></i> Takip Ettikleri</a>
+                        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><i class="fa fa-heart"></i> Beğendiği Makaleler</a>
+                        @*<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>*@
+                    </div>
+
+                    <!-- END MENU -->
+                </div>
+            </div>
+            <div class="col-md-9 card">
+                <div class="profile-content card-body">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            <div class="loading text-center font-weight-bold" v-if="!isOk"> <i class="fa fa-5x fa-refresh fa-spin"></i><br /> Makaleler yükleniyor. </div>
+                            <feed-article v-for="item in articles" :key="item.id" :article="item" :is-detail="true" :is-description="true" v-if="isOk"></feed-article>
+                            <div class="text-sm-right"> <code class="text-light bg-info"> Toplam {{articleTotalCount}} makale bulunmaktadır. </code></div>
+                            <nav v-if="paginationLength>1">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" v-bind:class="{ disabled:(articleOffset==0) }"><a class="page-link" href="#" v-on:click="GetArticles((articleOffset-1));"> <i class="fa fa-backward"></i> </a></li>
+                                    <li class="page-item" v-for="i in paginationLength" v-on:click="GetArticles((i-1));" v-bind:class="{active:((i-1)==articleOffset)}"><a class="page-link" href="#">{{i}}</a></li>
+                                    <li class="page-item" v-bind:class="{ disabled:(articleOffset==paginationLength-1) }"><a class="page-link" href="#" v-on:click="GetArticles((articleOffset+1));"> <i class="fa fa-forward"></i> </a></li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                            <profile-card-list userid="@Model.Id"> </profile-card-list>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                        @*<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/Assets/Js/article-component.js"></script>
+
+<script>
+    var id = $("#app").data("id");
+    Vue.component('profile-card', {
+        props: {
+            user: { required: true },
+            
+        },
+        data() {
+            return {
+                isFollow: false
+
+            }
+        },
+        template: `
+
+   <!-- Team member -->
+                                        <div class="col-xs-12 col-sm-6 col-md-4">
+                                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                                <div class="mainflip">
+                                                    <div class="frontside">
+                                                        <div class="card">
+                                                            <div class="card-body text-center">
+                                                                <p><img class=" img-fluid" :src="user.image" alt="card image"></p>
+                                                                <h4 class="card-title">{{user.userName}}</h4>
+                                                                <p class="card-text">{{(user.firstName + " " + user.lastName )}} </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="backside">
+                                                        <div class="card">
+                                                            <div class="card-body text-center mt-4">
+                                                                <h4 class="card-title">{{user.userName}}</h4>
+                                                                <p class="card-text"> {{user.bio}}</p>
+                                                                <ul class="list-inline">
+                                                                    <li class="list-inline-item">
+                                                                        <a class="social-icon text-xs-center"  data-toggle="tooltip" data-placement="top" :data-original-title="(isFollow?'Takipten Çıkar':'Takip Et')" href="#" v-on:click="Follow" v-bind:class="[(isFollow?'text-danger':'')]">
+                                                                            <i class="fa":class="[(isFollow? 'fa-eye-slash':'fa-eye')]"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <a class="social-icon text-xs-center"  data-toggle="tooltip" data-placement="top" title="Profile Git" :href="'/User/'+user.userName">
+                                                                            <i class="fa fa-address-book"></i>
+                                                                        </a>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ./Team member -->
+  
+
+`, methods: {
+
+            Follow: function () {
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:58160/api/User/followuser/' + this.user.id,
+                    headers: {
+                        "Authorization": "Bearer " + $("body").data("token")
+                    }
+                };
+                this.$http(req).then(function (result) {
+                    var body = result.body;
+                    if (body.errors != null) {
+                        toastr.error(body.errors.message, body.errors.code, { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true });
+                        return;
+                    }
+                    else {
+                        this.GetisFollow();
+                    }
+                    console.log(result);
+                }, function (err) {
+                    if (err.status == 401) {
+
+                        $.get("/User/NewToken", function (result) {
+                            console.log(result);
+                            if (result.status) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+
+            },
+            GetisFollow: function () {
+
+                this.$http.get('http://localhost:58160/api/User/isfollow?userid=' + $("body").data("userid") + '&followid=' + this.user.id).then(function (response) {
+                    this.isFollow = response.body.status;
+
+                }, function (error) {
+                    console.log(error);
+                });
+
+
+            },
+
+        },
+        computed: {
+
+
+        },
+        mounted: function () {
+            this.GetisFollow();
+            $('[data-toggle="tooltip"]').tooltip()
+
+
+        }
+    });
+
+    Vue.component('profile-card-list', {
+        props: {
+            userid: { required: true }
+        },
+        data() {
+            return {
+                users: [],
+                limit: 10,
+                totalCount: 0,
+                offset: 0,
+                isOk:false
+            }
+        },
+        template: `
+  <section id="team" class="pb-5">
+                                <div class="container">
+                                    <div class="row">
+                                     
+
+                            <profile-card v-for="item in users" :key="item.id" :user="item" ></profile-card>
+
+                                    </div>
+                                </div>
+                            </section>
+
+`, methods: {
+            GetFollowedUsers: function (offset = 0) {
+                this.isOk = false;
+                this.$http.get('http://localhost:58160/api/User/followuserlist/' + this.userid + '?offset=' + offset + '&limit=' + this.limit).then(function (response) {
+                    this.users = response.data.users;
+                    this.totalCount = response.data.totalCount;
+                    this.offset = offset;
+                    this.isOk = true;
+                    var index = this.users.map(function (d) { return d['id']; }).indexOf($("body").data("userid"));
+                    
+                    if (index>-1) {
+
+                    this.users.splice(index);
+                    this.totalCount--;
+                    }
+                
+
+
+                }, function (error) {
+                    console.log(error.statusText);
+                });
+            },
+
+
+
+        },
+        computed: {
+
+
+        },
+        mounted: function() {
+            this.GetFollowedUsers();
+        }
+    });
+
+
+
+
+    var app = new Vue({
+        el: '#app',
+
+        data: {
+            articles: [],
+            isOk: false,
+            articleCount: 0,
+            articleLimit: 2,
+            articleTotalCount: 0,
+            articleOffset: 0,
+            isFollow: false
+        },
+        methods: {
+            GetArticles: function (offset = 0) {
+                this.isOk = false;
+                this.$http.get('http://localhost:58160/api/Article/?limit=' + this.articleLimit + '&offset=' + offset + '&userid=' + id).then(function (response) {
+                    this.articles = response.data.articles;
+                    this.articleTotalCount = response.data.totalCount;
+                    this.articleOffset = offset;
+                    this.isOk = true;
+                }, function (error) {
+                    console.log(error.statusText);
+                });
+            },
+            Follow: function () {
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:58160/api/User/followuser/' + id,
+                    headers: {
+                        "Authorization": "Bearer " + $("body").data("token")
+                    }
+                };
+                this.$http(req).then(function (result) {
+                    var body = result.body;
+                    if (body.errors != null) {
+                        toastr.error(body.errors.message, body.errors.code, { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true });
+                        return;
+                    }
+                    else {
+                        this.GetisFollow();
+                    }
+
+                }, function (err) {
+                    if (err.status == 401) {
+
+                        $.get("/User/NewToken", function (result) {
+                            console.log(result);
+                            if (result.status) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+
+            },
+            GetisFollow: function () {
+
+                this.$http.get('http://localhost:58160/api/User/isfollow?userid=' + $("body").data("userid") + '&followid=' + id).then(function (response) {
+                    this.isFollow = response.body.status;
+
+                }, function (error) {
+                    console.log(error);
+                });
+
+
+            },
+
+        },
+        mounted: function () {
+            this.GetArticles();
+            this.GetisFollow();
+        },
+        computed: {
+            paginationLength() {
+                return Math.round(this.articleTotalCount / this.articleLimit);
+            },
+
+
+        }
+    });
+
+</script>
