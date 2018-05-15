@@ -101,7 +101,11 @@ namespace Conduit.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (HttpContext.Request.Form.Files.Count > 0)
+                if ( profileImg != null)
+                {
+                    model.Image = profileImg;
+                }
+                else if(HttpContext.Request.Form.Files.Count > 0)
                 {
                     var files = HttpContext.Request.Form.Files;
                     foreach (var item in files)
@@ -112,7 +116,7 @@ namespace Conduit.WebUI.Controllers
                             var fileExtension = Path.GetExtension(filename);
                             var newfile = model.UserName + fileExtension;
                             filename = Path.Combine(_hostingEnvironment.WebRootPath, "profileImages") + $@"\{newfile}";
-                            model.Image = $"profileImages/{newfile}";
+                            model.Image = $"/profileImages/{newfile}";
                             if (System.IO.File.Exists(filename))
                             {
                                 System.IO.File.Delete(filename);
@@ -125,7 +129,9 @@ namespace Conduit.WebUI.Controllers
                         }
                     }
                 }
-                model.Image = profileImg;
+                 
+                
+                //model.Image = profileImg;
                 var gelen = _apiRequestService.Put<ResultMessage<UserDto>>("http://localhost:58160/api/User", model, true);
                 ViewBag.Update = true;
                 return RedirectToAction("Profile");

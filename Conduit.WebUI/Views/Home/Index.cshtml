@@ -55,12 +55,12 @@
                                 @if (id != string.Empty)
                                 {
 
-                                    <feed-tab name="benimyazdiklarim" text="Benim Yazdıklarım"></feed-tab>
+                                    <feed-tab name="benimyazdiklarim" text="Benim Yazdıklarım" icon="fa fa-user"></feed-tab>
                                 }
-                                <feed-tab name="sonyazilanlar" text="Son Yazılanlar" active="true"></feed-tab>
+                                <feed-tab name="sonyazilanlar" text="Son Yazılanlar" active="true" icon="fa fa-list"></feed-tab>
 
 
-                                <feed-tab v-for="tab in tabs" :key="tab" :name="tab" :text="tab" isclose="true"></feed-tab>
+                                <feed-tab v-for="tab in tabs" :key="tab" :name="tab" :text="tab" isclose="true" icon="fa fa-tags"></feed-tab>
 
                             </div>
                         </nav>
@@ -69,7 +69,8 @@
                             @if (id != string.Empty)
                             {
 
-                                <feed-body name="benimyazdiklarim" userid="@id" onlyuser="true"></feed-body>
+                                <feed-body name="benimyazdiklarim" userid="@id" :onlyuser="true"></feed-body>
+                              
                             }
                             <feed-body name="sonyazilanlar" active="true"></feed-body>
                             <feed-body v-for="tab in tabs" :key="tab" :name="tab" :tag="tab"></feed-body>
@@ -102,6 +103,7 @@
 
 <div id="tokenAl" style="display:none;"></div>
 
+<script src="~/lib/Assets/Js/article-list-component.js"></script>
 
 @*<script src="~/lib/Assets/Js/article-component.js"></script>     Layoutta    *@
 <script>
@@ -112,9 +114,10 @@
             text: { type: String },
             name: { required: true, type: String },
             active: { required: false, type: String },
-            isclose: false
+            isclose: false,
+            icon: { type: String },
         },
-        template: '<a class="nav-item nav-link" v-bind:id="tabId"  v-bind:class="{active:active}" data-toggle="tab" v-bind:href="href" role="tab"  v-bind:aria-controls="tabElementId" aria-selected="false"> {{text}} <button class=" btn-close" v-if="isclose" v-on:click="CloseTag()"> <i class="fa fa-times-circle"></i> </button></a>',
+        template: '<a class="nav-item nav-link" v-bind:id="tabId"  v-bind:class="{active:active}" data-toggle="tab" v-bind:href="href" role="tab"  v-bind:aria-controls="tabElementId" aria-selected="false"> <i :class="icon" v-if="icon"></i> {{text}} <button class=" btn-close" v-if="isclose" v-on:click="CloseTag()"> <i class="fa fa-times-circle"></i> </button></a>',
         computed: {
             href() {
                 return "#" + this.tabElementId;
@@ -144,83 +147,33 @@
             name: { required: true, type: String },
             active: { required: false },
             tag: { type: String },
-            onlyuser: { },
+            onlyuser: { type: Boolean },
             userid: { type: String }
         },
         template: `
 <div class="tab-pane fade" v-bind:id="id" role="tabpanel" v-bind:aria-labelledby="parentId" v-bind:class="{show:active,active:active}">
-<div v-if="articles.length==0" class="text-center"><code> Herhangi bir makale bulunamadı. </code></div>
-  <div class="form-group" v-if="articles.length>0">
-                                        <label for="limitOfLastFeed">Eleman Sayısı Seçin</label>
-                                        <select class="form-control" v-model="articleLimit" v-on:change="GetArticles(0)">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-  <div class="text-center" v-if="isArticleLoading"> <i class="fa fa-spinner fa-pulse fa-3x"></i><p style="font-weight: 700;">Yükleniyor</p></div>
-    <feed-article v-for="a in articles" :key="a.id" :article="a"  :is-description="true" v-if="!isArticleLoading" ></feed-article>
-<hr />
-<div class="text-sm-right"> <code class="text-light bg-info"> Toplam {{articleTotalCount}} makale bulunmaktadır. </code></div>
-     <nav v-if="paginationLength>1">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" v-bind:class="{ disabled:(articleOffset==0) }"><a class="page-link" href="#" v-on:click="GetArticles((articleOffset-1));"> <i class="fa fa-backward"></i> </a></li>
-            <li class="page-item" v-for="i in paginationLength" v-on:click="GetArticles((i-1));" v-bind:class="{active:((i-1)==articleOffset)}"><a class="page-link" href="#">{{i}}</a></li>
-            <li class="page-item" v-bind:class="{ disabled:(articleOffset==paginationLength-1) }"><a class="page-link" href="#" v-on:click="GetArticles((articleOffset+1));"> <i class="fa fa-forward"></i> </a></li>
-        </ul>
-     </nav>
+    <article-list :onlyuser="onlyuser" :userid="userid" :tag="tag" v-if="onlyuser" ></article-list>
+    <article-list :userid="userid" :tag="tag" :onlyuser="false" v-if="!onlyuser" ></article-list>
 
 </div>`,
         data() {
             return {
-                articles: [],
-                articleLimit: 2,
-                articleTotalCount: 0,
-                articleOffset:0,
-                isArticleLoading:true,
+             
             }
 
         },
         methods: {
-            GetArticles: function (offset=0) {
-                this.isArticleLoading = true;
-                //fetch('http://localhost:58160/api/Article').then(response => response.json()).then(json => { vm.articles = json; });
-                if ((this.userid != "" || this.userid != null) && this.onlyuser=="true")
-                {
-                    this.$http.get('http://localhost:58160/api/Article?limit=' + this.articleLimit + '&&offset=' + offset  + "&userid=" + this.userid).then(function (response) {
-                        this.articles = response.data.articles;
-                        this.articleTotalCount = response.data.totalCount;
-                        this.articleOffset = offset;
-                        this.isArticleLoading = false;
-                    }, function (error) {
-                        console.log(error.statusText);
-                    });
-                }
-                else {
-
-                    this.$http.get('http://localhost:58160/api/Article?limit=' + this.articleLimit + '&&offset=' + offset + "&tag=" + this.tag).then(function (response) {
-                        this.articles = response.data.articles;
-                        this.articleTotalCount = response.data.totalCount;
-                        this.articleOffset = offset;
-                        this.isArticleLoading = false;
-                    }, function (error) {
-                        console.log(error.statusText);
-                    });
-                }
-
-            }
+        
 
         },
         mounted: function () {
-            this.GetArticles();
+            
         },
         computed: {
-            paginationLength() {
+            //paginationLength() {
 
-                return Math.round(this.articleTotalCount / this.articleLimit);
-            },
+            //    return Math.round(this.articleTotalCount / this.articleLimit);
+            //},
             id() {
                 return "nav-" + this.name;
             },

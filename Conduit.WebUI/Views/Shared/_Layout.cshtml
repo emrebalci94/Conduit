@@ -38,7 +38,7 @@
 </head>
 
 
-<body data-userid="@(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.PrimarySid)!=null ? User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.PrimarySid).Value:"")" data-token="@(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Hash)!= null ? User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Hash).Value : "")">
+<body data-userid="@(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.PrimarySid)!=null ? User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.PrimarySid).Value:"")" data-token="@(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Hash)!= null ? User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Hash).Value : "")" data-username="@(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Upn)!=null? (User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Upn).Value):"" )">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" asp-controller="Home" asp-action="Index"><i class="fa fa-newspaper-o"></i> Conduit</a>
@@ -60,7 +60,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" asp-controller="User" asp-action="Profile"><i class="fa fa-user"></i> Profil</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-heart"></i> Takip Ettiklerim</a>
+                            <a class="dropdown-item" href="/User/@(User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Upn).Value)"><i class="fa fa-address-book"></i> Profilim Hakkında</a>
                             <a class="dropdown-item" asp-controller="Article" asp-action="Index"><i class="fa fa-plus-square"></i> Yeni Makale</a>
 
                             <div class="dropdown-divider"></div>

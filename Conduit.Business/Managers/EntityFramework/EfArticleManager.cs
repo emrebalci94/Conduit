@@ -73,10 +73,21 @@ namespace Conduit.Business.Managers.EntityFramework
                 var isUser = await _userServices.Get(p => p.Id == query.UserId);
                 if (isUser != null)
                 {
-                    queryable = queryable.Where(p => p.AuthorUserId == isUser.Id);
+                    //Eğer Like yaptıklarını istiyorsak...
+                    if (query.OnlyLiked)
+                    {
+                        queryable = queryable.Where(p => p.ArticleFavorites.Any(x => x.UserId == isUser.Id));
+                    }
+                    else
+                    {
+                        queryable = queryable.Where(p => p.AuthorUserId == isUser.Id);
+                    }
 
                 }
+
             }
+
+
             //.Select(p => new ArticleViewModel {Id=p.Id, AuthorUser = p.AuthorUser, AuthorUserId = p.AuthorUserId, Body = p.Body, CreatedAt = p.CreatedAt, Description = p.Description, Slug = p.Slug, Title = p.Title, UpdatedAt = p.UpdatedAt, Tags = p.ArticleTags.Select(x => x.TagId).ToList() })
             var articleList = queryable.OrderByDescending(p => p.UpdatedAt).Skip(query.Offset * query.Limit).Take(query.Limit).ToList();
 
@@ -93,7 +104,7 @@ namespace Conduit.Business.Managers.EntityFramework
 
         public async Task<ArticleViewModel> GetViewModel(Expression<Func<Article, bool>> expression)
         {
-            var article = GetIncludes(p => p.ArticleTags,p=>p.AuthorUser,p=>p.ArticleFavorites).FirstOrDefault(expression);
+            var article = GetIncludes(p => p.ArticleTags, p => p.AuthorUser, p => p.ArticleFavorites).FirstOrDefault(expression);
             return _mapper.Map<ArticleViewModel>(article);
         }
 
@@ -118,7 +129,7 @@ namespace Conduit.Business.Managers.EntityFramework
                 }
 
                 var sonuc = await base.Insert(articleDoa);
-            
+
                 if (sonuc > 0)
                 {
                     List<ArticleTag> articleTags = new List<ArticleTag>();

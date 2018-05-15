@@ -194,7 +194,7 @@
 
             .backside .card a {
                 font-size: 18px;
-                color: #007b5e ;
+                color: #007b5e;
             }
 
                 .backside .card a:hover {
@@ -214,15 +214,18 @@
             }
 </style>
 
-<div id="app" class="container" data-id="@Model.Id">
+
+<div id="app" class="container" data-id="@Model.Id" data-username="@Model.UserName">
 
     <div class="row">
         <div class="row profile col-md-12">
             <div class="col-md-3">
                 <div class="profile-sidebar ">
+
+
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic text-center">
-                        <img src="@(Model.Image??"http://standaloneinstaller.com/upload/avatar.png")" class="rounded-circle img-thumbnail" alt="">
+                        <img src="@(Model.Image==null?"http://standaloneinstaller.com/upload/avatar.png":  Model.Image)" class="rounded-circle img-thumbnail" alt="">
                     </div>
                     <!-- END SIDEBAR USERPIC  http://standaloneinstaller.com/upload/avatar.png-->
                     <!-- SIDEBAR USER TITLE -->
@@ -236,17 +239,21 @@
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
                     <!-- SIDEBAR BUTTONS -->
-                    <div class="profile-userbuttons">
-                        <button type="button" v-bind:class="[ (isFollow ? 'btn-outline-danger':'btn-success') ]" class="btn btn-success btn-block" v-on:click="Follow"><i class="fa" v-bind:class="[(isFollow?'fa-eye-slash':'fa-eye')]"></i>  {{(isFollow?"Takipten Çık":"Takip Et")}} </button>
+                    @if (User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Upn) !=null &&Model.UserName != User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Upn).Value)
+                    {
+                        <div class="profile-userbuttons">
+                            <button type="button" v-bind:class="[ (isFollow ? 'btn-outline-danger':'btn-success') ]" class="btn btn-success btn-block" v-on:click="Follow"><i class="fa" v-bind:class="[(isFollow?'fa-eye-slash':'fa-eye')]"></i>  {{(isFollow?"Takipten Çık":"Takip Et")}} </button>
 
-                    </div>
+                        </div>
+
+                    }
                     <!-- END SIDEBAR BUTTONS -->
                     <!-- SIDEBAR MENU -->
                     <hr />
 
 
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-book"></i> Yazdığı Makaleler</a>
+                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-book"></i>  Yazdığı Makaleler</a>
                         <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="fa fa-users"></i> Takip Ettikleri</a>
                         <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><i class="fa fa-heart"></i> Beğendiği Makaleler</a>
                         @*<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>*@
@@ -259,38 +266,36 @@
                 <div class="profile-content card-body">
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                            <div class="loading text-center font-weight-bold" v-if="!isOk"> <i class="fa fa-5x fa-refresh fa-spin"></i><br /> Makaleler yükleniyor. </div>
-                            <feed-article v-for="item in articles" :key="item.id" :article="item" :is-detail="true" :is-description="true" v-if="isOk"></feed-article>
-                            <div class="text-sm-right"> <code class="text-light bg-info"> Toplam {{articleTotalCount}} makale bulunmaktadır. </code></div>
-                            <nav v-if="paginationLength>1">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item" v-bind:class="{ disabled:(articleOffset==0) }"><a class="page-link" href="#" v-on:click="GetArticles((articleOffset-1));"> <i class="fa fa-backward"></i> </a></li>
-                                    <li class="page-item" v-for="i in paginationLength" v-on:click="GetArticles((i-1));" v-bind:class="{active:((i-1)==articleOffset)}"><a class="page-link" href="#">{{i}}</a></li>
-                                    <li class="page-item" v-bind:class="{ disabled:(articleOffset==paginationLength-1) }"><a class="page-link" href="#" v-on:click="GetArticles((articleOffset+1));"> <i class="fa fa-forward"></i> </a></li>
-                                </ul>
-                            </nav>
+
+
+                            <article-list :onlyuser="true" :userid="@Model.Id" :article-description="true"></article-list>
+
 
                         </div>
                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                             <profile-card-list userid="@Model.Id"> </profile-card-list>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                            <article-list :onlyuser="true" :userid="@Model.Id" :onlyliked="true" :article-description="true"></article-list>
+                        </div>
                         @*<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>*@
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+</div>
+<script src="~/lib/Assets/Js/article-list-component.js"></script>
 <script src="~/lib/Assets/Js/article-component.js"></script>
 
 <script>
+
     var id = $("#app").data("id");
     Vue.component('profile-card', {
         props: {
             user: { required: true },
-            
+
         },
         data() {
             return {
@@ -338,11 +343,16 @@
                                             </div>
                                         </div>
                                         <!-- ./Team member -->
-  
+
 
 `, methods: {
 
             Follow: function () {
+                if ($("body").data("userid") == "") {
+                    toastr.error("Takip etmek için giriş yapmalısınız.", "Giriş Yapılmamış", { "positionClass": "toast-bottom-full-width", "closeButton": true, "progressBar": true });
+                    return;
+                }
+
                 var req = {
                     method: 'POST',
                     url: 'http://localhost:58160/api/User/followuser/' + this.user.id,
@@ -357,7 +367,7 @@
                         return;
                     }
                     else {
-                        this.GetisFollow();
+                        this.$parent.GetFollowedUsers();
                     }
                     console.log(result);
                 }, function (err) {
@@ -374,6 +384,8 @@
 
             },
             GetisFollow: function () {
+
+         
 
                 this.$http.get('http://localhost:58160/api/User/isfollow?userid=' + $("body").data("userid") + '&followid=' + this.user.id).then(function (response) {
                     this.isFollow = response.body.status;
@@ -415,7 +427,7 @@
   <section id="team" class="pb-5">
                                 <div class="container">
                                     <div class="row">
-                                     
+
 
                             <profile-card v-for="item in users" :key="item.id" :user="item" ></profile-card>
 
@@ -432,13 +444,13 @@
                     this.offset = offset;
                     this.isOk = true;
                     var index = this.users.map(function (d) { return d['id']; }).indexOf($("body").data("userid"));
-                    
+
                     if (index>-1) {
 
                     this.users.splice(index);
                     this.totalCount--;
                     }
-                
+
 
 
                 }, function (error) {
@@ -457,9 +469,6 @@
             this.GetFollowedUsers();
         }
     });
-
-
-
 
     var app = new Vue({
         el: '#app',

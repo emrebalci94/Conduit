@@ -38,9 +38,9 @@ namespace Conduit.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ArticleListModel> GetArticleListModel([FromQuery] string tag, [FromQuery] int? offset, [FromQuery] int? limit,[FromQuery] int? userid)
+        public async Task<ArticleListModel> GetArticleListModel([FromQuery] string tag, [FromQuery] int? offset, [FromQuery] int? limit,[FromQuery] int? userid,[FromQuery] bool? onlyliked)
         {
-            return await _articleServices.GetListModel(new ArticleQuery(tag, offset, limit,userid));
+            return await _articleServices.GetListModel(new ArticleQuery(tag, offset, limit,userid,onlyliked));
         }
 
         [HttpGet]

@@ -45,6 +45,7 @@ Vue.component('feed-article', {
             if (this.isDetail) {
                 return;
             }
+            
             Home.AddTab(tag);
         },
         likeOrUnlike: function (event) {
@@ -100,7 +101,7 @@ Vue.component('feed-article', {
 
         },
         profilePicture() {
-            return this.article.authorUser.image == null ? "http://standaloneinstaller.com/upload/avatar.png" : this.article.authorUser.image;
+            return this.article.authorUser.image == null ? "http://standaloneinstaller.com/upload/avatar.png" :this.article.authorUser.image;
 
         },
         body() {
