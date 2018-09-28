@@ -9,6 +9,7 @@ using Conduit.Business.Services;
 using Conduit.Common.DataAccess;
 using Conduit.Data;
 using Conduit.Data.EntityFramework;
+using Conduit.WebApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -69,6 +70,7 @@ namespace Conduit.WebApi
             services.AddScoped<IArticleTagsServices, EfArticleTagManager>();
             services.AddScoped<IArticleFavoriteServices, EfArticleFavoriteManager>();
             services.AddScoped<ICommentSercices, EfCommentManager>();
+            services.AddScoped<IUploadHelper, UploadHelper>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton(mapper); //Mapping Dependency
             services.AddMvc()

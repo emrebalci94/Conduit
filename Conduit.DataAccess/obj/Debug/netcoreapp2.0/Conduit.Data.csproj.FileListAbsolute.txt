@@ -26,3 +26,17 @@ C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.DataAccess\obj\Debug\netcor
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.csproj.CopyComplete
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.dll
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.pdb
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.Data.deps.json
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.Data.dll
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.Data.pdb
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.Common.dll
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.Domain.dll
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.Domain.pdb
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\bin\Debug\netcoreapp2.0\Conduit.Common.pdb
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.csprojAssemblyReference.cache
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.csproj.CoreCompileInputs.cache
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.AssemblyInfoInputs.cache
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.AssemblyInfo.cs
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.csproj.CopyComplete
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.dll
+D:\Conduit_GitHub\Conduit\Conduit.DataAccess\obj\Debug\netcoreapp2.0\Conduit.Data.pdb

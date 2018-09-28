@@ -23,6 +23,7 @@ namespace Conduit.Business.Services
         Task<ResultMessage<User>> DeleteAsync(int id);
         Task<ResultMessage<UserDto>> GetUserAsync(int id);
         Task<ResultMessage<UserDto>> GetUserModel(string username);
+        Task<ResultMessage<UserDto>> UpdateProfileImageAsync(int id,string fileName);
 
 
         Task<User> Get(Expression<Func<User, bool>> expression);

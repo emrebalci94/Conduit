@@ -6,6 +6,7 @@ using AutoMapper;
 using Conduit.Business.Helpers;
 using Conduit.Business.Services;
 using Conduit.Common.Dto;
+using Conduit.WebApi.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -21,12 +22,14 @@ namespace Conduit.WebApi.Controllers
         private readonly IUserServices _userServices;
         private readonly IFollowedUserServices _flowedUserServices;
         private readonly IArticleFavoriteServices _articleFavoriteServices;
+        private readonly IUploadHelper _uploadHelper;
 
-        public UserController(IUserServices userServices, IFollowedUserServices flowedUserServices, IArticleFavoriteServices articleFavoriteServices)
+        public UserController(IUserServices userServices, IFollowedUserServices flowedUserServices, IArticleFavoriteServices articleFavoriteServices, IUploadHelper uploadHelper)
         {
             _userServices = userServices;
             _flowedUserServices = flowedUserServices;
             _articleFavoriteServices = articleFavoriteServices;
+            _uploadHelper = uploadHelper;
         }
 
         [HttpGet]
@@ -43,7 +46,7 @@ namespace Conduit.WebApi.Controllers
             var result = await _userServices.GetUserAsync(id);
             if (result.Errors == null)
             {
-               return Ok(result.Result);
+                return Ok(result.Result);
             }
             return BadRequest(result.Errors.Message);
         }
@@ -52,7 +55,8 @@ namespace Conduit.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetUserAsync(string username)
         {
-            var result = await _userServices.GetUserModel(username); 
+            var result = await _userServices.GetUserModel(username);
+            result.Result.Image = _uploadHelper.GetCdn(result.Result.Image);
             return Ok(result);
         }
 
@@ -62,7 +66,7 @@ namespace Conduit.WebApi.Controllers
             //Model is valid mi yapılıcak...
             if (ModelState.IsValid)
             {
-                var durum =await _userServices.InsertAsync(userDto);
+                var durum = await _userServices.InsertAsync(userDto);
                 if (durum.Errors == null)
                 {
                     return Ok(durum);
@@ -82,6 +86,7 @@ namespace Conduit.WebApi.Controllers
                 var durum = await _userServices.UpdateAsync(userDto);
                 if (durum.Errors == null)
                 {
+                    durum.Result.Image = _uploadHelper.GetCdn(durum.Result.Image);
                     return Ok(durum);
                 }
                 return Ok(durum);
@@ -93,7 +98,7 @@ namespace Conduit.WebApi.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
 
-            var durum =await _userServices.DeleteAsync(id);
+            var durum = await _userServices.DeleteAsync(id);
             if (durum.Errors != null)
             {
                 return Ok(durum);
@@ -106,7 +111,7 @@ namespace Conduit.WebApi.Controllers
         public async Task<IActionResult> FollowUserAsync(int id)
         {
             var userId = Convert.ToInt32(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-            var durum =await _flowedUserServices.FollowUserAsync(id, userId);
+            var durum = await _flowedUserServices.FollowUserAsync(id, userId);
             if (durum.Errors != null)
             {
                 return Ok(durum);
@@ -126,7 +131,7 @@ namespace Conduit.WebApi.Controllers
         [Authorize]
         public async Task<IActionResult> FavoriteArticleAsync(int id, int articleId)
         {
-            var durum =await _articleFavoriteServices.AddFavoriteArticle(id, articleId);
+            var durum = await _articleFavoriteServices.AddFavoriteArticle(id, articleId);
             if (durum.Errors != null)
             {
                 return Ok(durum);
@@ -135,10 +140,43 @@ namespace Conduit.WebApi.Controllers
         }
 
         [HttpGet("followuserlist/{userid}")]
-        public async Task<IActionResult> FollowUserList([FromQuery] int? offset, [FromQuery] int? limit,  int userid)
-        {  
+        public async Task<IActionResult> FollowUserList([FromQuery] int? offset, [FromQuery] int? limit, int userid)
+        {
             var model = await _flowedUserServices.GetListModel(userid, limit, offset);
+            model.Users.ForEach(p =>
+            {
+                p.Image = _uploadHelper.GetCdn(p.Image);
+            });
             return Ok(model);
+        }
+
+        [HttpPost("uploadtoimage/{userId}")]
+        [Authorize]
+        public async Task<IActionResult> UploadToImage()
+        {
+            if (Request.Form.Files.Any())
+            {
+                var file = Request.Form.Files[0];
+                var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                string yol = _uploadHelper.Upload(file, "Images", userId);
+                if (!string.IsNullOrEmpty(yol))
+                {
+                    var result = await _userServices.UpdateProfileImageAsync(Convert.ToInt32(userId), yol);
+                    if (result.Errors != null)
+                    {
+                        result.Result.Image = _uploadHelper.GetCdn(result.Result.Image);
+                        return Ok(result);
+                    }
+                    else
+                    {
+                        return BadRequest(result);
+
+                    }
+                }
+                return BadRequest("Image Not Found.");
+            }
+
+            return BadRequest("Image Not Found.");
         }
     }
 }

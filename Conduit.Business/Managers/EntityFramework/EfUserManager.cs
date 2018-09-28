@@ -178,5 +178,12 @@ namespace Conduit.Business.Managers.EntityFramework
             }
             return resultMessage;
         }
+
+        public async Task<ResultMessage<UserDto>> UpdateProfileImageAsync(int id, string fileName)
+        {
+            User user = await _repository.Get(p => p.Id == id);
+            user.Image = fileName;
+            return await UpdateAsync(_mapper.Map<UserDto>(user));
+        }
     }
 }

@@ -16,3 +16,12 @@ C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.Core\obj\Debug\netcoreapp2.
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.dll
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.pdb
 C:\Users\EXT02D13704\Desktop\Conduit\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.csprojResolveAssemblyReference.cache
+D:\Conduit_GitHub\Conduit\Conduit.Core\bin\Debug\netcoreapp2.0\Conduit.Common.deps.json
+D:\Conduit_GitHub\Conduit\Conduit.Core\bin\Debug\netcoreapp2.0\Conduit.Common.dll
+D:\Conduit_GitHub\Conduit\Conduit.Core\bin\Debug\netcoreapp2.0\Conduit.Common.pdb
+D:\Conduit_GitHub\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.csprojAssemblyReference.cache
+D:\Conduit_GitHub\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.csproj.CoreCompileInputs.cache
+D:\Conduit_GitHub\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.AssemblyInfoInputs.cache
+D:\Conduit_GitHub\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.AssemblyInfo.cs
+D:\Conduit_GitHub\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.dll
+D:\Conduit_GitHub\Conduit\Conduit.Core\obj\Debug\netcoreapp2.0\Conduit.Common.pdb

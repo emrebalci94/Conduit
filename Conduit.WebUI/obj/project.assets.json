@@ -12860,23 +12860,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\EXT02D13704\\.nuget\\packages\\": {},
+    "C:\\Users\\CodeOfWar\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebUI\\Conduit.WebUI.csproj",
+      "projectUniqueName": "D:\\Conduit_GitHub\\Conduit\\Conduit.WebUI\\Conduit.WebUI.csproj",
       "projectName": "Conduit.WebUI",
-      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebUI\\Conduit.WebUI.csproj",
-      "packagesPath": "C:\\Users\\EXT02D13704\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.WebUI\\obj\\",
+      "projectPath": "D:\\Conduit_GitHub\\Conduit\\Conduit.WebUI\\Conduit.WebUI.csproj",
+      "packagesPath": "C:\\Users\\CodeOfWar\\.nuget\\packages\\",
+      "outputPath": "D:\\Conduit_GitHub\\Conduit\\Conduit.WebUI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\EXT02D13704\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\CodeOfWar\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

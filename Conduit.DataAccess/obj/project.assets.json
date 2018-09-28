@@ -6975,23 +6975,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\EXT02D13704\\.nuget\\packages\\": {},
+    "C:\\Users\\CodeOfWar\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj",
+      "projectUniqueName": "D:\\Conduit_GitHub\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj",
       "projectName": "Conduit.Data",
-      "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj",
-      "packagesPath": "C:\\Users\\EXT02D13704\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.DataAccess\\obj\\",
+      "projectPath": "D:\\Conduit_GitHub\\Conduit\\Conduit.DataAccess\\Conduit.Data.csproj",
+      "packagesPath": "C:\\Users\\CodeOfWar\\.nuget\\packages\\",
+      "outputPath": "D:\\Conduit_GitHub\\Conduit\\Conduit.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\EXT02D13704\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\CodeOfWar\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7004,8 +7004,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Domain\\Conduit.Domain.csproj": {
-              "projectPath": "C:\\Users\\EXT02D13704\\Desktop\\Conduit\\Conduit\\Conduit.Domain\\Conduit.Domain.csproj"
+            "D:\\Conduit_GitHub\\Conduit\\Conduit.Domain\\Conduit.Domain.csproj": {
+              "projectPath": "D:\\Conduit_GitHub\\Conduit\\Conduit.Domain\\Conduit.Domain.csproj"
             }
           }
         }
